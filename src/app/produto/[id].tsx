@@ -1,7 +1,23 @@
 import { Image, Text, View, TouchableOpacity } from "react-native";
 import { styles } from "../home/styles";
+import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
  
 export default function Produto() {
+
+    const {id} = useLocalSearchParams()
+    const [produtos, setProduto] = useState<ProdutoType>()
+
+    function fetchProduct(){
+        fetch("http://localhost:8080/produtos/=")
+        .then((res) => res.json())
+        .then((data => setProduto(data)))
+    }
+
+    useEffect(() => {
+        fetchProduct()
+    }, [])
+
     type ProdutoType = {
         name: string;
         description: string;
@@ -14,15 +30,15 @@ export default function Produto() {
         description: "Pão macio e brilhante, hambúrguer de frango crocante, queijo derretido, alface fresca e molho especial de estrelas!",
         price: 22.00,
         image: require("@/assets/images/Chickenburguer.png")
-       
- 
- 
+    
     };
  
     return (
         <View style={styles.container}>
             <View style={styles.productHeader}>
-                <Image source={produto.image} style={styles.productImage} />
+                <Image
+                source={produto?.image}
+                style={styles.productImage} />
             </View>
            
             <View style={styles.productDetails}>

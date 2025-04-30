@@ -3,7 +3,7 @@ import { styles } from "./styles"
 import { Link } from 'expo-router'
 import { useEffect, useState } from 'react'
 
-type ProductType = {
+export type ProductType = {
     id: number,
     name: String,
     price: number,
@@ -48,7 +48,7 @@ export default function Index() {
 
                 {
                     produtos?.map((item) => (
-                            <Link href={"/produto/1"} asChild key={item.id}>
+                            <Link href={`/produto/${item.id}`} asChild key={item.id}>
                         <TouchableOpacity style={styles.menuItem}>
                             <View style={styles.menuContent}>
                                 <Text style={styles.itemName}>{item.name}</Text>
